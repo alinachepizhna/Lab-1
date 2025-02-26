@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Реєстрація клієнта</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Реєстрація</h2>
+    <form id="registration-form" enctype="multipart/form-data">
+        <!-- Поле для Ім'я та Прізвище -->
+        <label for="fullname">Ім'я та Прізвище:</label>
+        <input type="text" id="fullname" name="fullname" required><br>
+
+        <!-- Поле для Email -->
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <!-- Поле для Пароля -->
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <!-- Поле для Номеру телефону -->
+        <label for="phone">Номер телефону:</label>
+        <input type="tel" id="phone" name="phone" required><br>
+
+        <!-- Поле для Дати народження -->
+        <label for="dob">Дата народження:</label>
+        <input type="date" id="dob" name="dob" required><br>
+
+        <!-- Вибір статі -->
+        <label>Стать:</label>
+        <input type="radio" id="male" name="gender" value="male" required>
+        <label for="male">Чоловіча</label>
+        <input type="radio" id="female" name="gender" value="female" required>
+        <label for="female">Жіноча</label><br>
+
+        <!-- Вибір країни -->
+        <label for="country">Країна:</label>
+        <select id="country" name="country" required>
+            <option value="UA">Україна</option>
+            <option value="RU">Іспанія</option>
+            <option value="BY">Чехія</option>
+        </select><br>
+
+        <!-- Згода на обробку даних -->
+        <label for="agreement">Згода на обробку даних:</label>
+        <input type="checkbox" id="agreement" name="agreement" required><br>
+
+        <!-- Фото профілю -->
+        <label for="photo">Фото профілю:</label>
+        <input type="file" id="photo" name="photo" accept="image/*"><br>
+
+        <!-- Додаткові поля для лаб.2 та лаб.3 -->
+        <label for="result_test">Результат тесту:</label>
+        <input type="text" id="result_test" name="result_test" placeholder="Результат тесту" required><br>
+
+        <label for="result_game">Результат гри:</label>
+        <input type="text" id="result_game" name="result_game" placeholder="Результат гри" required><br>
+
+        <!-- Кнопка "Зареєструватися" -->
+        <button type="submit">Зареєструватися</button>
+    </form>
+
+    <script>
+        // Обробник події для форми
+        document.getElementById("registration-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Запобігає стандартній відправці форми
+
+            // Збір даних з форми
+            const fullname = document.getElementById("fullname").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const phone = document.getElementById("phone").value;
+            const dob = document.getElementById("dob").value;
+            const gender = document.querySelector('input[name="gender"]:checked');
+            const country = document.getElementById("country").value;
+            const agreement = document.getElementById("agreement").checked;
+            const photo = document.getElementById("photo").files[0] ? document.getElementById("photo").files[0].name : "";
+            const resultTest = document.getElementById("result_test").value;
+            const resultGame = document.getElementById("result_game").value;
+
+            // Перевірка на обов'язкові поля
+            if (!fullname || !email || !password || !phone || !dob || !gender || !country || !agreement || !resultTest || !resultGame) {
+                alert("Будь ласка, заповніть всі обов'язкові поля.");
+                return;
+            }
+
+            // Перевірка вибору статі
+            if (!gender) {
+                alert("Будь ласка, виберіть стать.");
+                return;
+            }
+
+            // Створення об'єкта з даними клієнта
+            const clientData = {
+                fullname: fullname,
+                email: email,
+                password: password,
+                phone: phone,
+                dob: dob,
+                gender: gender.value,
+                country: country,
+                agreement: agreement,
+                photo: photo,
+                result_test: resultTest,
+                result_game: resultGame
+            };
+
+            // Надсилання даних на сервер через JSON
+            fetch("/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(clientData)
+            }).then(response => {
+                if (response.ok) {
+                    alert("Реєстрація успішна!");
+                } else {
+                    alert("Сталася помилка при реєстрації.");
+                }
+            }).catch(error => {
+                alert("Сталася помилка при відправці даних.");
+            });
+        });
+    </script>
+
+</body>
+</html>

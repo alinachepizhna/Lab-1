@@ -1,0 +1,101 @@
+/* Загальні стилі для всіх елементів */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+    color: #444;
+}
+
+h2 {
+    text-align: center;
+    color: #3b3b3b;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="date"],
+select,
+input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #d1d1d1;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #fafafa;
+    color: #333;
+}
+
+/* Стиль для кнопки */
+button {
+    background-color: #007BFF; /* Синій */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #0056b3; /* Темно-синій */
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Стилі для поля input[type="file"] */
+input[type="file"] {
+    padding: 8px;
+    border: 1px solid #d1d1d1;
+    cursor: pointer;
+    background-color: #f9f9f9;
+}
+
+/* Стилі для полів, коли у них є фокус */
+input:focus,
+select:focus,
+button:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+/* Стиль для помилок */
+input:invalid,
+select:invalid {
+    border-color: #FF6B6B;
+}
+
+input:valid,
+select:valid {
+    border-color: #4CAF50;
+}
